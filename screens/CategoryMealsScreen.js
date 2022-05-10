@@ -1,11 +1,13 @@
 import React from "react";
-import { CATEGORIES, MEALS } from "../data/dummy-data";
+import { CATEGORIES } from "../data/dummy-data";
+import { useSelector } from "react-redux";
 import MealList from "../components/MealList";
-import { CommonActions } from "@react-navigation/native";
 
 const CategoryMealsScreen = (props) => {
   const catId = props.route.params.categoryId;
-  const displayMeals = MEALS.filter(
+
+  const availableMeals = useSelector((state) => state.meals.filteredMeals);
+  const displayMeals = availableMeals.filter(
     (meal) => meal.categoryId.indexOf(catId) >= 0
   );
 

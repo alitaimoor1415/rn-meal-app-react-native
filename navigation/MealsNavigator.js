@@ -71,24 +71,29 @@ const MealsNavigator = () => {
       <MealsNav.Screen
         name="MealDetail"
         component={MealDetailScreen}
-        options={{
-          title: "Meal Detail",
-          headerBackTitleStyle: {
-            fontFamily: "open-sans",
-          },
-          headerTitleStyle: {
-            fontSize: 17,
-            fontFamily: "open-sans-bold",
-          },
-          headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Favorite"
-                iconName="ios-star"
-                onPress={() => console.log("Mark as the favorite")}
-              />
-            </HeaderButtons>
-          ),
+        options={({ route }) => {
+          const toggleFav = route.params.toggleFav;
+          const isFavorite = route.params.isFav;
+
+          return {
+            title: route.params.mealTitle,
+            headerBackTitleStyle: {
+              fontFamily: "open-sans",
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+              fontFamily: "open-sans-bold",
+            },
+            headerRight: () => (
+              <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                  title="Favorite"
+                  iconName={isFavorite ? "ios-star" : "ios-star-outline"}
+                  onPress={toggleFav}
+                />
+              </HeaderButtons>
+            ),
+          };
         }}
       />
     </MealsNav.Navigator>
